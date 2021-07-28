@@ -1,3 +1,12 @@
+#target out
+out/
+
+#build tool chains
+build/tool_chains/
+
+#SWP files
+*.swp
+
 # Prerequisites
 *.d
 

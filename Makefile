@@ -1,3 +1,4 @@
+SHELL = /bin/bash
 export SDK_VERSION := 0.0.1
 
 export TOP_DIR=$(shell pwd 2>/dev/null)
@@ -111,9 +112,10 @@ $(foreach mk, $(subdir_makefiles), $(info including $(mk) ...)$(eval -include $(
 
 APP_MODULES := $(sort $(APP_MODULES))
 .PHONY :app app.clean app.install
-app:$(APP_MODULESS)
-	@echo APP_MODULES:  $(APP_MODULES)
-	$(call color_echo,32,40, "SDK building $@ $(APP_MODULES) done... ")
+
+app:$(APP_MODULES)
+	$(call color_echo,32,40,"SDK building $@ $(APP_MODULES) done... ")
+
 
 
 .PHONY :clean

@@ -2,7 +2,7 @@
 out/
 
 #build tool chains
-build/tool_chains/
+build/tool_chains/g*
 
 #SWP files
 *.swp

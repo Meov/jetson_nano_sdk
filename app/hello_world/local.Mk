@@ -1,0 +1,9 @@
+LOCAL_PATH := $(call local-dir)
+TARGET_DO_DIR := $(TARGET_APP_DO_DIR)
+include $(CLEAR_MFILE)
+LOCAL_MODULE := hello_word
+LOCAL_SRC_FILES := hello_word.c
+LOCAL_MODULE_PATH := $(TARGET_APP_OUT)
+include $(EXECUTABLE_MFILE)
+LOCAL_DEPEND_MODULES := hello_word
+include $(BUILDING2PREBUILT_MFILE)

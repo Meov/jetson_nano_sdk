@@ -1,0 +1,20 @@
+ifneq ($(call is_module_prbt,powerop),yes)
+
+LOCAL_PATH := $(call local-dir)
+   
+include $(CLEAR_MFILE)
+LOCAL_MODULE := powerswitch
+LOCAL_SRC_FILES := powerswitch.c
+LOCAL_MODULE_PATH := $(TARGET_OUT_ROOTFS_DIR)/bin
+include $(EXECUTABLE_MFILE)
+
+else
+
+LOCAL_PATH := $(call local-dir)
+include $(CLEAR_MFILE)
+LOCAL_MODULE := powerswitch
+LOCAL_SRC_FILES := powerswitch
+LOCAL_MODULE_PATH := $(TARGET_OUT_ROOTFS_DIR)/bin
+include $(PREBUILT_MFILE)
+
+endif

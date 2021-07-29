@@ -8,19 +8,18 @@ TARGET := APP
 
 OS_TYPE := $(shell uname -m 2>/dev/null)
 
-BUILD_TOOL_CHAINS :=$(TOP_DIR)/build/tool_chains/gcc-4.9-2016.02-x86_64_arm-linux-gnueabi
+BUILD_TOOL_CHAINS :=$(TOP_DIR)/build/tool_chains/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu
 
 exist = $(shell if [ -d $(BUILD_TOOL_CHAINS) ]; then echo "exist"; else echo "notexist"; fi;)
 
 $(info $(exist) $(BUILD_TOOL_CHAINS))
 
 ifeq ($(strip $(exist)), exist)
-export CROSS_COMPILE := $(BUILD_TOOL_CHAINS)/bin/arm-linux-gnueabi-
+export CROSS_COMPILE := $(BUILD_TOOL_CHAINS)/bin/aarch64-linux-gnu-
 else 
-$(error CROSS_COMPILER  NOT FOUND in $(TOP_DIR)/build/tool_chains)
+#$(error CROSS_COMPILER  NOT FOUND in $(TOP_DIR)/build/tool_chains)
+$(info BUILD_TOOL_CHAINS does not exist we use gcc as the compiler)
 endif
-
-
 
 ifeq ($(strip $(OS_TYPE)), x86_64)
 #export CROSS_COMPILE :=$(TOP_DIR)/build/tool_chains/gcc-linaro-7.3.1-2018.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-
@@ -60,17 +59,18 @@ OUT_DIRS_LIST += $(TARGET_COMMON_APP_LDLIBS_DIR)
 export TARGET_COMMON_APDD_LDLIBS_DIR := $(APDD_OUT_DIR)/obj/libs
 OUT_DIRS_LIST += $(TARGET_COMMON_APDD_LDLIBS_DIR)
 
+
 ifeq ($(strip  $(TARGET)), APDD)
-	TARGET_BUILD := $(TOP_DIR)/apdd
 	TARGET_COMMON_LDLIBS_DIR := $(TARGET_COMMON_APDD_LDLIBS_DIR)
+	TARGET_BUILD := $(TOP_DIR)/apdd
 else ifeq ($(strip $(TARGET)),APP)
-	TARGET_BUILD := $(TOP_DIR)/app
 	TARGET_COMMON_LDLIBS_DIR := $(TARGET_COMMON_APP_LDLIBS_DIR)
+	TARGET_BUILD := $(TOP_DIR)/app
 else
 	TARGET_BUILD := $(TOP_DIR)/app
 endif
 
-export $(TARGET_BUILD)
+export TARGET_BUILD
 export APDD_MODULES :=
 export APP_MODULES :=
 
@@ -115,7 +115,6 @@ APP_MODULES := $(sort $(APP_MODULES))
 
 app:$(APP_MODULES)
 	$(call color_echo,32,40,"SDK building $@ $(APP_MODULES) done... ")
-
 
 
 .PHONY :clean

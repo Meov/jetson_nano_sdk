@@ -1,5 +1,7 @@
 LACAL_PATH :=$(call local-dir)
 
+#judge wether we use this kernel
+ifeq ($(TARGET_KERNEL_DIR),$(LACAL_PATH))
 #clear all the FLAGS
 include $(CLEAR_MFILE)
 
@@ -13,7 +15,7 @@ kernel:kernel.install
 
 .PHONY: kernel.install
 kernel.install : kernel.img
-	$(silent) -rm -rf $(TARGET_OUT_DIR)/kernel
+	$(silent) -rm -rf $(KERNEL_TARGET_OUT_DIR)/kernel
 
 .PHONY : kernel.img
 kernel.img:$(LOCAL_FILE)
@@ -21,7 +23,7 @@ $(LOCAL_FILE):zImage.clean kernel.config
 	$(silent) $(MAKE_CMD) zImage
 	$(silent) -rm -rf $(LACAL_PATH)/arch/arm/boot/*.dtbs
 	$(silent) $(MAKE_CMD) dtbs
-	$(silent) cp -prf $(LACAL_PATH)/arch/arm/boot/*.dtbs $(TARGET_OUT_DIR)
+	$(silent) cp -prf $(LACAL_PATH)/arch/arm/boot/*.dtbs $(KERNEL_TARGET_OUT_DIR)
 
 .PHONY: zImage.clean
 
@@ -60,4 +62,5 @@ dtbs:
 	@echo "make dtbs..."
 	$(silent) -rm -rf $(LACAL_PATH)/arch/arm/boot/*.dtbs
 	$(silent) $(MAKE_CMD) dtbs
-	$(silent) cp -prf $(LACAL_PATH)/arch/arm/boot/*.dtbs $(TARGET_OUT_DIR)
+	$(silent) cp -prf $(LACAL_PATH)/arch/arm/boot/*.dtbs $(KERNEL_TARGET_OUT_DIR)
+endif

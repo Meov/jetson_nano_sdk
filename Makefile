@@ -5,6 +5,8 @@ export TOP_DIR=$(shell pwd 2>/dev/null)
 export START_DATE := $(shell date +%Y_%m_%d_%T 2>/dev/null | awk '{gsub(":","_",$$1);print $$1}' 2>/dev/null)
 
 TARGET := APP
+#build for jetson nano
+export PLATFORM := ARM64
 
 OS_TYPE := $(shell uname -m 2>/dev/null)
 

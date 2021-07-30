@@ -5,6 +5,6 @@ export TARGET_KERNEL_DIR := $(TOP_DIR)/apdd/bsp/kernel/kernel_jetson/kernel/kern
 export TARGET_KERNEL_CONFIG := tegra_defconfig
 
 #uboot config and path
-export TARGET_BOOT_DIR :=
-export TARGET_BOOT_CONFIG :=
+export TARGET_UBOOT_DIR := $(TOP_DIR)/apdd/bsp/uboot/u-boot
+export TARGET_UBOOT_CONFIG := p2371-2180_defconfig
 endif
